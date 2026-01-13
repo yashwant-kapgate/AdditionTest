@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import os
 
 app = Flask(__name__)
 
@@ -16,14 +15,12 @@ def add_numbers():
     if num1 is None or num2 is None:
         return jsonify({"error": "Please provide num1 and num2"}), 400
 
-    result = num1 + num2
-
     return jsonify({
         "num1": num1,
         "num2": num2,
-        "result": result
+        "result": num1 + num2
     })
 
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+@app.route('/')
+def health():
+    return "Service is running", 200
